@@ -1,0 +1,76 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1040" viewBox="0 0 1600 1040" role="img" aria-labelledby="title desc">
+  <title id="title">ShopLedger application architecture and order placement flow</title>
+  <desc id="desc">Architecture map of the ShopLedger browser UI, Express routers, library modules, config and JSON data store. Numbered arrows show placing an order.</desc>
+  <defs>
+    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#52627a"/></marker>
+    <marker id="flowArrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto"><path d="M0 0L10 5L0 10Z" fill="#087e8b"/></marker>
+    <style>
+      text{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;fill:#182235}
+      .title{font-size:30px;font-weight:750}.subtitle{font-size:14px;fill:#52627a}
+      .section{font-size:15px;font-weight:700;letter-spacing:1.2px;fill:#52627a}
+      .node{fill:#fff;stroke:#c9d3e0;stroke-width:1.5}.head{font-size:17px;font-weight:700}.small{font-size:13px;fill:#52627a}
+      .flowtext{font-size:12px;font-weight:700;fill:#087e8b}.edge{fill:none;stroke:#8795a9;stroke-width:1.6;marker-end:url(#arrow)}
+      .flow{fill:none;stroke:#087e8b;stroke-width:2.7;marker-end:url(#flowArrow)}
+      .soft{fill:#eef8f8;stroke:#79b9bf;stroke-width:1.5}.data{fill:#fff8e9;stroke:#d6b66e;stroke-width:1.5}
+      .ui{fill:#f0f5ff;stroke:#8ba9df;stroke-width:1.5}.router{fill:#f6f1ff;stroke:#b7a2df;stroke-width:1.5}
+    </style>
+  </defs>
+  <rect width="1600" height="1040" fill="#f6f8fb"/>
+  <text x="48" y="58" class="title">ShopLedger · application architecture</text>
+  <text x="48" y="84" class="subtitle">Browser POS and back office · Express API · JSON file persistence</text>
+
+  <text x="48" y="135" class="section">USER INTERFACE</text>
+  <rect x="48" y="155" width="320" height="125" rx="14" class="ui"/>
+  <text x="72" y="190" class="head">public/</text>
+  <text x="72" y="218" class="small">index.html · app.js · style.css</text>
+  <text x="72" y="244" class="small">POS · Order History · Khata · Audit</text>
+
+  <rect x="435" y="145" width="1090" height="183" rx="18" fill="#fbfaff" stroke="#d7cbea" stroke-width="1.5"/>
+  <text x="462" y="175" class="section">EXPRESS API · routes/</text>
+  <rect x="462" y="195" width="230" height="92" rx="11" class="router"/><text x="480" y="228" class="head">products.js</text><text x="480" y="254" class="small">catalog · coupons</text>
+  <rect x="716" y="195" width="230" height="92" rx="11" class="router"/><text x="734" y="228" class="head">orders.js</text><text x="734" y="254" class="small">place · list · cancel</text>
+  <rect x="970" y="195" width="230" height="92" rx="11" class="router"/><text x="988" y="228" class="head">customers.js</text><text x="988" y="254" class="small">Khata · settlements</text>
+  <rect x="1224" y="195" width="270" height="92" rx="11" class="router"/><text x="1242" y="228" class="head">reports.js</text><text x="1242" y="254" class="small">preview · reports · export</text>
+
+  <text x="48" y="376" class="section">BUSINESS LOGIC · lib/</text>
+  <rect x="48" y="395" width="1477" height="300" rx="18" fill="#f8fbfc" stroke="#c9d3e0" stroke-width="1.5"/>
+  <rect x="75" y="425" width="228" height="94" rx="11" class="soft"/><text x="94" y="458" class="head">orders.js</text><text x="94" y="485" class="small">create · cancel · list</text>
+  <rect x="330" y="425" width="228" height="94" rx="11" class="soft"/><text x="349" y="458" class="head">inventory.js</text><text x="349" y="485" class="small">stock checks · reserve</text>
+  <rect x="585" y="425" width="228" height="94" rx="11" class="soft"/><text x="604" y="458" class="head">pricing.js</text><text x="604" y="485" class="small">subtotal · discount · total</text>
+  <rect x="840" y="425" width="228" height="94" rx="11" class="soft"/><text x="859" y="458" class="head">coupons.js</text><text x="859" y="485" class="small">normalize · validate</text>
+  <rect x="1095" y="425" width="228" height="94" rx="11" class="soft"/><text x="1114" y="458" class="head">tax.js</text><text x="1114" y="485" class="small">HSN GST · CGST/SGST</text>
+  <rect x="1350" y="425" width="148" height="94" rx="11" class="soft"/><text x="1366" y="458" class="head">ledger.js</text><text x="1366" y="485" class="small">Khata</text>
+  <rect x="75" y="555" width="228" height="94" rx="11" class="node"/><text x="94" y="588" class="head">reports.js</text><text x="94" y="615" class="small">dashboard · reconciliation</text>
+  <rect x="330" y="555" width="228" height="94" rx="11" class="node"/><text x="349" y="588" class="head">invoice.js</text><text x="349" y="615" class="small">printable invoice HTML</text>
+  <rect x="585" y="555" width="228" height="94" rx="11" class="node"/><text x="604" y="588" class="head">dates.js</text><text x="604" y="615" class="small">date keys · fiscal year</text>
+  <rect x="840" y="555" width="228" height="94" rx="11" class="data"/><text x="859" y="588" class="head">store.js</text><text x="859" y="615" class="small">read · write · audit log</text>
+  <rect x="1095" y="555" width="403" height="94" rx="11" class="data"/><text x="1114" y="588" class="head">config.js</text><text x="1114" y="615" class="small">shop · tax slabs · inventory defaults · coupons</text>
+
+  <text x="48" y="754" class="section">PERSISTENCE</text>
+  <rect x="48" y="777" width="350" height="100" rx="14" class="data"/><text x="72" y="817" class="head">data/db.json</text><text x="72" y="844" class="small">products · orders · customers · settlements · auditLog</text>
+
+  <rect x="435" y="730" width="1090" height="230" rx="18" fill="#fff" stroke="#b8d9db" stroke-width="1.5"/>
+  <text x="462" y="763" class="section">ORDER PLACEMENT · POST /api/orders</text>
+  <g>
+    <rect x="462" y="790" width="185" height="95" rx="12" class="ui"/><text x="480" y="825" class="head">1 · POS submits</text><text x="480" y="851" class="small">items · customer · coupon</text>
+    <rect x="682" y="790" width="185" height="95" rx="12" class="soft"/><text x="700" y="825" class="head">2 · Resolve</text><text x="700" y="851" class="small">catalog · validate stock</text>
+    <rect x="902" y="790" width="185" height="95" rx="12" class="soft"/><text x="920" y="825" class="head">3 · Calculate</text><text x="920" y="851" class="small">coupon · HSN GST · total</text>
+    <rect x="1122" y="790" width="165" height="95" rx="12" class="soft"/><text x="1140" y="825" class="head">4 · Commit</text><text x="1140" y="851" class="small">Khata · stock · order</text>
+    <rect x="1322" y="790" width="172" height="95" rx="12" class="data"/><text x="1340" y="825" class="head">5 · Persist</text><text x="1340" y="851" class="small">audit · JSON write</text>
+    <path d="M647 837H676" class="flow"/><path d="M867 837H896" class="flow"/><path d="M1087 837H1116" class="flow"/><path d="M1287 837H1316" class="flow"/>
+  </g>
+
+  <!-- Structural connections -->
+  <path d="M368 218H454" class="edge"/>
+  <path d="M827 328V383H190V418" class="edge"/>
+  <path d="M827 328V383H445V418" class="edge"/>
+  <path d="M827 328V383H700V418" class="edge"/>
+  <path d="M827 328V383H955V418" class="edge"/>
+  <path d="M827 328V383H1208V418" class="edge"/>
+  <path d="M827 328V383H1424V418" class="edge"/>
+  <path d="M940 555V526" class="edge"/><path d="M940 555V677H223V770" class="edge"/>
+  <path d="M1195 555V526" class="edge"/>
+  <path d="M185 519V548" class="edge"/><path d="M445 519V548" class="edge"/><path d="M700 519V548" class="edge"/>
+  <path d="M1450 519V548" class="edge"/>
+  <text x="48" y="1000" class="small">Solid teal arrows show the order placement sequence. Gray arrows show application dependencies and data access.</text>
+</svg>
